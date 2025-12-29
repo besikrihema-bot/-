@@ -8,7 +8,6 @@ from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, r2_score
-import matplotlib.pyplot as plt
 import io
 
 # إعداد الصفحة
@@ -19,103 +18,122 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# تخصيص التصميم باستخدام CSS (Premium Emerald Dark Theme)
+# تخصيص التصميم باستخدام CSS (High-Fidelity Sapphire Theme)
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Noto+Sans+Arabic:wght@400;700;800&display=swap');
 
-    /* المظهر العام - فخامة داكنة */
+    /* المظهر العام - أزرق عميق وتقني */
     .stApp {
-        background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%);
-        color: #e0e0e0;
-        font-family: 'Tajawal', sans-serif;
+        background-color: #020617;
+        color: #f8fafc;
+        font-family: 'Noto Sans Arabic', 'Inter', sans-serif;
     }
     
     .main {
-        background: transparent;
+        background-color: #020617;
     }
 
-    /* تحسين العناوين */
+    /* العنوان الرئيسي - ضخم ومشع */
     h1 {
-        background: linear-gradient(to right, #10b981, #fbbf24);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-size: 3rem !important;
+        color: #ffffff !important;
         font-weight: 800 !important;
-        margin-bottom: 2rem !important;
-        text-shadow: 2px 2px 10px rgba(16, 185, 129, 0.2);
+        font-size: 3.5rem !important;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: -2px;
+        margin-bottom: 3rem !important;
+        text-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
     }
     
+    /* العناوين الجانبية */
     h5 {
-        color: #10b981 !important;
-        border-bottom: 2px solid #10b981;
-        padding-bottom: 10px;
-        margin-bottom: 20px !important;
-        text-align: right !important;
+        color: #3b82f6 !important;
+        font-weight: 800 !important;
+        font-size: 1.1rem !important;
+        margin-top: 2rem !important;
+        margin-bottom: 1.5rem !important;
+        border-right: 5px solid #3b82f6;
+        padding-right: 15px;
+        letter-spacing: 0.05em;
     }
 
-    /* زر التحليل - تصميم زجاجي متطور */
+    /* الزر السحري - توهج سافاير */
     .stButton>button {
         width: 100%;
-        background: linear-gradient(90deg, #059669 0%, #10b981 100%);
-        color: white !important;
+        background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+        color: #ffffff !important;
         font-size: 22px !important;
-        font-weight: 700 !important;
-        border-radius: 15px;
+        font-weight: 800 !important;
+        border-radius: 12px;
         padding: 20px;
-        border: none;
-        box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        cursor: pointer;
+        border: 2px solid #60a5fa;
+        box-shadow: 0 0 25px rgba(59, 130, 246, 0.5);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        text-transform: uppercase;
     }
 
     .stButton>button:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(16, 185, 129, 0.5);
-        background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+        transform: scale(1.02);
+        box-shadow: 0 0 40px rgba(59, 130, 246, 0.8);
+        border-color: #ffffff;
     }
 
-    /* تخصيص الخانات بلون داكن فخم */
+    /* الخانات - تصميم تقني مظلم */
     div[data-baseweb="select"], div[data-baseweb="input"], .stNumberInput input, .stSelectbox div {
-        background-color: #262626 !important;
+        background-color: #0f172a !important;
         color: #ffffff !important;
-        border: 1px solid #404040 !important;
+        border: 1px solid #334155 !important;
         border-radius: 10px !important;
+        padding: 5px !important;
     }
     
     label {
-        color: #10b981 !important;
-        font-weight: 500 !important;
-        font-size: 1rem !important;
+        color: #94a3b8 !important;
+        font-weight: 700 !important;
+        font-size: 0.9rem !important;
         margin-bottom: 8px !important;
     }
 
-    /* بطاقات النتائج - Glassmorphism */
+    /* بطاقات النتائج - تصميم مستقبلي */
     .metric-card {
-        background: rgba(40, 40, 40, 0.6);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 30px;
-        border-radius: 25px;
+        background: linear-gradient(145deg, #0f172a 0%, #020617 100%);
+        border: 2px solid #1e293b;
+        padding: 40px;
+        border-radius: 20px;
         text-align: center;
         margin-bottom: 30px;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-        transition: transform 0.3s;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        position: relative;
+        overflow: hidden;
     }
     
-    .metric-card:hover {
-        transform: scale(1.02);
-        border-color: #10b981;
+    .metric-card::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0; height: 3px;
+        background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+    }
+    
+    .metric-card h3 {
+        color: #3b82f6 !important;
+        font-size: 1.2rem !important;
+        font-weight: 700 !important;
+        text-transform: uppercase;
+        margin-bottom: 20px !important;
     }
 
-    /* تعديل عناصر الراديو والسلايدر للون الزمردي */
-    .stSlider [data-baseweb="slider"] {
-        color: #10b981 !important;
+    .metric-card h2 {
+        color: #ffffff !important;
+        font-size: 4rem !important;
+        font-weight: 900 !important;
+        margin: 0 !important;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
     }
-    
+
     /* إخفاء الهوامش الزائدة */
     .block-container {
-        padding: 3rem 5rem !important;
+        padding: 4rem 6rem !important;
     }
 
     footer {visibility: hidden;}
