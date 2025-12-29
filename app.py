@@ -19,59 +19,70 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# تخصيص التصميم باستخدام CSS (Dark Theme)
+# تخصيص التصميم باستخدام CSS (Dark Blue Theme)
 st.markdown("""
 <style>
-    /* تحسين المظهر العام وخلفية غامقة */
+    /* خلفية زرقاء غامقة عصرية */
     .stApp {
-        background-color: #0e1117;
-        color: #ffffff;
+        background-color: #0a192f;
+        color: #e6edf3;
     }
     .main {
-        background-color: #0e1117;
+        background-color: #0a192f;
     }
-    /* تحسين أزرار الاستريم ليت */
+    /* جعل زر التحليل بارزاً جداً وكلامه أخضر */
     .stButton>button {
         width: 100%;
-        background-color: #00c04b;
-        color: white;
-        font-weight: bold;
-        border-radius: 10px;
-        padding: 12px;
-        border: none;
-        transition: 0.3s;
+        background-color: #112240;
+        color: #00c04b !important;
+        font-size: 20px !important;
+        font-weight: 800 !important;
+        border-radius: 12px;
+        padding: 18px;
+        border: 2px solid #00c04b;
+        transition: 0.4s all ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
     .stButton>button:hover {
-        background-color: #00e65a;
-        box-shadow: 0 4px 15px rgba(0, 192, 75, 0.4);
+        background-color: #00c04b !important;
+        color: #112240 !important;
+        box-shadow: 0 0 20px rgba(0, 192, 75, 0.4);
     }
-    h1, h2, h3, h4 {
+    h1, h2, h3, h4, h5 {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        color: #00c04b !important;
+        color: #64ffda !important;
         text-align: center;
+    }
+    /* تخصيص الخانات (Selectbox, Input) بلون مختلف */
+    div[data-baseweb="select"], div[data-baseweb="input"], .stNumberInput input {
+        background-color: #112240 !important;
+        color: #ffffff !important;
+        border: 1px solid #233554 !important;
     }
     /* بطاقات النتائج */
     .metric-card {
-        background-color: #1e2130;
-        padding: 20px;
-        border-radius: 15px;
-        border: 1px solid #30363d;
+        background-color: #112240;
+        padding: 30px;
+        border-radius: 20px;
+        border: 1px solid #233554;
         text-align: center;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 10px 40px rgba(2, 12, 27, 0.7);
     }
-    /* إخفاء الهوامش غير الضرورية */
-    .block-container {
-        padding-top: 2rem;
-    }
-    /* تحسين شكل المدخلات */
-    .stSelectbox, .stSlider, .stNumberInput {
-        background-color: #1e2130;
-        border-radius: 8px;
-    }
+    /* نصوص العناوين الجانبية */
     label {
-        color: #e6edf3 !important;
-        font-weight: 500;
+        color: #ccd6f6 !important;
+        font-weight: 600;
+        font-size: 1.1rem;
     }
+    /* حذف هوامش الموبايل الافتراضية */
+    .block-container {
+        padding-top: 3rem;
+    }
+    /* إخفاء شعارات ستريمليت */
+    footer {visibility: hidden;}
+    #MainMenu {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
 
@@ -237,18 +248,6 @@ if submitted:
     else: verdict, v_color = "سعر عادل", "#ffa500"
 
     st.markdown(f"<div class='metric-card'><h4>💡 مقارنة مع متوسط المركز ({position})</h4><p>متوسط السعر: {avg_price:,.0f} $</p><h3 style='color:{v_color} !important;'>{verdict}</h3></div>", unsafe_allow_html=True)
-
-    # الرسم البياني
-    fig, ax = plt.subplots(figsize=(6, 3))
-    fig.patch.set_facecolor('#0e1117')
-    ax.set_facecolor('#0e1117')
-    ax.bar(['اللاعب الحالي', f'متوسط {position}'], [predicted_price, avg_price], color=['#00c04b', '#1E3A8A'])
-    ax.tick_params(colors='white')
-    ax.spines['bottom'].set_color('white')
-    ax.spines['top'].set_visible(False)
-    ax.spines['right'].set_visible(False)
-    ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: format(int(x), ',')))
-    st.pyplot(fig)
 
     # تصدير التقرير
     output = io.BytesIO()
