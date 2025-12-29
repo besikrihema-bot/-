@@ -19,68 +19,105 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# تخصيص التصميم باستخدام CSS (Dark Blue Theme)
+# تخصيص التصميم باستخدام CSS (Premium Emerald Dark Theme)
 st.markdown("""
 <style>
-    /* خلفية زرقاء غامقة عصرية */
+    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap');
+
+    /* المظهر العام - فخامة داكنة */
     .stApp {
-        background-color: #0a192f;
-        color: #e6edf3;
+        background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%);
+        color: #e0e0e0;
+        font-family: 'Tajawal', sans-serif;
     }
+    
     .main {
-        background-color: #0a192f;
+        background: transparent;
     }
-    /* جعل زر التحليل بارزاً جداً وكلامه أخضر */
+
+    /* تحسين العناوين */
+    h1 {
+        background: linear-gradient(to right, #10b981, #fbbf24);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 3rem !important;
+        font-weight: 800 !important;
+        margin-bottom: 2rem !important;
+        text-shadow: 2px 2px 10px rgba(16, 185, 129, 0.2);
+    }
+    
+    h5 {
+        color: #10b981 !important;
+        border-bottom: 2px solid #10b981;
+        padding-bottom: 10px;
+        margin-bottom: 20px !important;
+        text-align: right !important;
+    }
+
+    /* زر التحليل - تصميم زجاجي متطور */
     .stButton>button {
         width: 100%;
-        background-color: #112240;
-        color: #00c04b !important;
-        font-size: 20px !important;
-        font-weight: 800 !important;
-        border-radius: 12px;
-        padding: 18px;
-        border: 2px solid #00c04b;
-        transition: 0.4s all ease;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+        background: linear-gradient(90deg, #059669 0%, #10b981 100%);
+        color: white !important;
+        font-size: 22px !important;
+        font-weight: 700 !important;
+        border-radius: 15px;
+        padding: 20px;
+        border: none;
+        box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        cursor: pointer;
     }
+
     .stButton>button:hover {
-        background-color: #00c04b !important;
-        color: #112240 !important;
-        box-shadow: 0 0 20px rgba(0, 192, 75, 0.4);
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(16, 185, 129, 0.5);
+        background: linear-gradient(90deg, #10b981 0%, #059669 100%);
     }
-    h1, h2, h3, h4, h5 {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        color: #64ffda !important;
-        text-align: center;
-    }
-    /* تخصيص الخانات (Selectbox, Input) بلون مختلف */
-    div[data-baseweb="select"], div[data-baseweb="input"], .stNumberInput input {
-        background-color: #112240 !important;
+
+    /* تخصيص الخانات بلون داكن فخم */
+    div[data-baseweb="select"], div[data-baseweb="input"], .stNumberInput input, .stSelectbox div {
+        background-color: #262626 !important;
         color: #ffffff !important;
-        border: 1px solid #233554 !important;
+        border: 1px solid #404040 !important;
+        border-radius: 10px !important;
     }
-    /* بطاقات النتائج */
-    .metric-card {
-        background-color: #112240;
-        padding: 30px;
-        border-radius: 20px;
-        border: 1px solid #233554;
-        text-align: center;
-        margin-bottom: 25px;
-        box-shadow: 0 10px 40px rgba(2, 12, 27, 0.7);
-    }
-    /* نصوص العناوين الجانبية */
+    
     label {
-        color: #ccd6f6 !important;
-        font-weight: 600;
-        font-size: 1.1rem;
+        color: #10b981 !important;
+        font-weight: 500 !important;
+        font-size: 1rem !important;
+        margin-bottom: 8px !important;
     }
-    /* حذف هوامش الموبايل الافتراضية */
+
+    /* بطاقات النتائج - Glassmorphism */
+    .metric-card {
+        background: rgba(40, 40, 40, 0.6);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 30px;
+        border-radius: 25px;
+        text-align: center;
+        margin-bottom: 30px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        transition: transform 0.3s;
+    }
+    
+    .metric-card:hover {
+        transform: scale(1.02);
+        border-color: #10b981;
+    }
+
+    /* تعديل عناصر الراديو والسلايدر للون الزمردي */
+    .stSlider [data-baseweb="slider"] {
+        color: #10b981 !important;
+    }
+    
+    /* إخفاء الهوامش الزائدة */
     .block-container {
-        padding-top: 3rem;
+        padding: 3rem 5rem !important;
     }
-    /* إخفاء شعارات ستريمليت */
+
     footer {visibility: hidden;}
     #MainMenu {visibility: hidden;}
 </style>
