@@ -18,124 +18,63 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# تخصيص التصميم باستخدام CSS (High-Fidelity Sapphire Theme)
+# تخصيص التصميم باستخدام CSS (Classic Light Theme)
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Noto+Sans+Arabic:wght@400;700;800&display=swap');
-
-    /* المظهر العام - أزرق عميق وتقني */
+    /* المظهر العام - أبيض نظيف */
     .stApp {
-        background-color: #020617;
-        color: #f8fafc;
-        font-family: 'Noto Sans Arabic', 'Inter', sans-serif;
+        background-color: #ffffff;
+        color: #1f2937;
     }
-    
     .main {
-        background-color: #020617;
+        background-color: #ffffff;
     }
-
-    /* العنوان الرئيسي - ضخم ومشع */
-    h1 {
-        color: #ffffff !important;
-        font-weight: 800 !important;
-        font-size: 3.5rem !important;
-        text-align: center;
-        text-transform: uppercase;
-        letter-spacing: -2px;
-        margin-bottom: 3rem !important;
-        text-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
-    }
-    
-    /* العناوين الجانبية */
-    h5 {
-        color: #3b82f6 !important;
-        font-weight: 800 !important;
-        font-size: 1.1rem !important;
-        margin-top: 2rem !important;
-        margin-bottom: 1.5rem !important;
-        border-right: 5px solid #3b82f6;
-        padding-right: 15px;
-        letter-spacing: 0.05em;
-    }
-
-    /* الزر السحري - توهج سافاير */
+    /* زر التحليل - أزرق احترافي */
     .stButton>button {
         width: 100%;
-        background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
-        color: #ffffff !important;
-        font-size: 22px !important;
-        font-weight: 800 !important;
-        border-radius: 12px;
-        padding: 20px;
-        border: 2px solid #60a5fa;
-        box-shadow: 0 0 25px rgba(59, 130, 246, 0.5);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        text-transform: uppercase;
+        background-color: #2563eb;
+        color: white !important;
+        font-weight: bold;
+        border-radius: 8px;
+        padding: 12px;
+        border: none;
+        transition: 0.3s;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
-
     .stButton>button:hover {
-        transform: scale(1.02);
-        box-shadow: 0 0 40px rgba(59, 130, 246, 0.8);
-        border-color: #ffffff;
+        background-color: #1d4ed8;
+        box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.4);
     }
-
-    /* الخانات - تصميم تقني مظلم */
-    div[data-baseweb="select"], div[data-baseweb="input"], .stNumberInput input, .stSelectbox div {
-        background-color: #0f172a !important;
-        color: #ffffff !important;
-        border: 1px solid #334155 !important;
-        border-radius: 10px !important;
-        padding: 5px !important;
-    }
-    
-    label {
-        color: #94a3b8 !important;
-        font-weight: 700 !important;
-        font-size: 0.9rem !important;
-        margin-bottom: 8px !important;
-    }
-
-    /* بطاقات النتائج - تصميم مستقبلي */
-    .metric-card {
-        background: linear-gradient(145deg, #0f172a 0%, #020617 100%);
-        border: 2px solid #1e293b;
-        padding: 40px;
-        border-radius: 20px;
+    h1, h2, h3, h4, h5 {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #2563eb !important;
         text-align: center;
-        margin-bottom: 30px;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-        position: relative;
-        overflow: hidden;
     }
-    
-    .metric-card::before {
-        content: "";
-        position: absolute;
-        top: 0; left: 0; right: 0; height: 3px;
-        background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+    /* تخصيص الخانات بلون رمادي فاتح (ليس أبيض) كما طُلِب سابقاً */
+    div[data-baseweb="select"], div[data-baseweb="input"], .stNumberInput input {
+        background-color: #f3f4f6 !important;
+        color: #1f2937 !important;
+        border: 1px solid #d1d5db !important;
+        border-radius: 6px !important;
     }
-    
-    .metric-card h3 {
-        color: #3b82f6 !important;
-        font-size: 1.2rem !important;
-        font-weight: 700 !important;
-        text-transform: uppercase;
-        margin-bottom: 20px !important;
+    /* بطاقات النتائج */
+    .metric-card {
+        background-color: #ffffff;
+        padding: 25px;
+        border-radius: 15px;
+        border: 1px solid #e5e7eb;
+        text-align: center;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
-
-    .metric-card h2 {
-        color: #ffffff !important;
-        font-size: 4rem !important;
-        font-weight: 900 !important;
-        margin: 0 !important;
-        text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    /* نصوص العناوين الجانبية */
+    label {
+        color: #4b5563 !important;
+        font-weight: 600;
     }
-
-    /* إخفاء الهوامش الزائدة */
     .block-container {
-        padding: 4rem 6rem !important;
+        padding-top: 2rem;
     }
-
     footer {visibility: hidden;}
     #MainMenu {visibility: hidden;}
 </style>
